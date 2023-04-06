@@ -11,10 +11,12 @@ login_win = QWidget()
 login_app.setApplicationName("Login")
 login_app.setStyleSheet('''
 
+
         QWidget{
             background-color: #333333;
             color:white;
             font-weight:bold;
+            padding:5px 10px;
         }
         
         QLineEdit{

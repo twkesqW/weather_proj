@@ -9,5 +9,8 @@
     },
     "test": {
         "password": "111"
+    },
+    "siri": {
+        "password": "2"
     }
 }
