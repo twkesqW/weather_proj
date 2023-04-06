@@ -8,6 +8,7 @@ import main
 
 login_app = QApplication([])
 login_win = QWidget()
+login_win.setObjectName("login_win")
 login_app.setApplicationName("Login")
 login_app.setStyleSheet('''
 
@@ -16,6 +17,9 @@ login_app.setStyleSheet('''
             background-color: #333333;
             color:white;
             font-weight:bold;
+        }
+        
+        QWidget#login_win{
             padding:5px 10px;
         }
         
@@ -35,6 +39,11 @@ login_app.setStyleSheet('''
             margin:5px;
             color:grey;
         }
+        
+        QLabel{
+            color:white;
+        }
+        
 
 ''')
 
@@ -79,7 +88,9 @@ def loginGame():
 
     if login in jsonD:
         if password == jsonD[login]['password']:
-            main.weather_app()
+            login_win.hide()
+            main.weather_app(jsonD[login]['town'])
+
     else:
         print("No")
         sys.exit()

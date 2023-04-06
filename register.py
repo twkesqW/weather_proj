@@ -12,15 +12,23 @@ def RegisterWindow():
 
     loginTextW = QLabel("New username:")
     passwordTextW = QLabel("Password:")
+    townTextW = QLabel("Your Town:")
     loginEditW = QLineEdit()
     passwordEditW = QLineEdit()
+    townEditW = QLineEdit()
+
     signBtnW = QPushButton("Sign Up")
     cancelBtnW = QPushButton("Cancel")
+
+
+
 
     mainLine.addWidget(loginTextW)
     mainLine.addWidget(loginEditW)
     mainLine.addWidget(passwordTextW)
     mainLine.addWidget(passwordEditW)
+    mainLine.addWidget(townTextW)
+    mainLine.addWidget(townEditW)
 
     btnLineW.addWidget(signBtnW)
     btnLineW.addWidget(cancelBtnW)
@@ -35,17 +43,19 @@ def RegisterWindow():
             json_data = json.load(file)
         userSign = loginEditW.text()
         passwordSign = passwordEditW.text()
-
+        town = townEditW.text()
         if userSign in json_data:
             QMessageBox.warning(dialog, "LOH", "NO, NO")
 
         else:
             json_data[userSign] = {
-                "password": passwordSign
+                "password": passwordSign,
+                "town": town
             }
             QMessageBox.warning(dialog, "Success", "Successfully")
             with open("data.json", "w", encoding="utf-8") as file:
                 json.dump(json_data, file, indent=4)
+
             dialog.close()
 
     signBtnW.clicked.connect(reg)

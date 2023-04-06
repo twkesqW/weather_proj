@@ -6,9 +6,9 @@ import requests
 
 # ------------------------------------------------------------------------------------------------------------------------
 
-def weather_app():
+def weather_app(local):
 
-    location = "Lviv"
+    location =local
     api_key = "8fd6f775df7f422781d164050232303"
     url = f"http://api.weatherapi.com/v1/current.json?key={api_key}&q={location}&aqi=no"
     request = requests.get(url)

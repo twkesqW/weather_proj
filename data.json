@@ -1,16 +1,6 @@
 {
-    "sasha": "123456789",
-    "danya": "987654321",
-    "vasya": {
-        "password": "1"
-    },
-    "oleg": {
-        "password": "3333"
-    },
     "test": {
-        "password": "111"
-    },
-    "siri": {
-        "password": "2"
+        "password": "1",
+        "town": "Lviv"
     }
 }
