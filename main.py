@@ -3,12 +3,12 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import QIcon,QPixmap
 import requests
-
+import urllib.request
 # ------------------------------------------------------------------------------------------------------------------------
 
 def weather_app(local):
 
-    location =local
+    location = local
     api_key = "8fd6f775df7f422781d164050232303"
     url = f"http://api.weatherapi.com/v1/current.json?key={api_key}&q={location}&aqi=no"
     request = requests.get(url)
@@ -86,18 +86,29 @@ def weather_app(local):
     welcome_text = QLabel("WELCOME!")
     welcome_text.setObjectName("welcome")
 
-    imagel = QLabel()
-    image = QPixmap("weather.png")
-    image = image.scaled(100, 100)
-    imagel.setPixmap(image)
+
+
+    try:
+        print(f"https://{str(data_weather['condition']['icon'])}")
+
+        urlIm = f"https:{str(data_weather['condition']['icon'])}"
+        dataIm = urllib.request.urlopen(urlIm).read()
+
+        imagel = QLabel()
+        image = QPixmap()
+        image.loadFromData(dataIm)
+        image = image.scaled(100, 100)
+        imagel.setPixmap(image)
+    except Exception as e:
+        print(e)
 
     town = QLabel(location)
     town.setObjectName("town")
-    temperature = QLabel(f"Temperature: {str(data_weather['temp_c'])}")
-    humidity = QLabel(f"Humidity: {str(data_weather['humidity'])}")
-    wind_kph = QLabel(f"Wind kph: {str(data_weather['wind_kph'])}")
-    cloud = QLabel(f"Cloud: {str(data_weather['cloud'])}")
-
+    temperature = QLabel(f"Температура: {str(data_weather['temp_c'])}")
+    humidity = QLabel(f"Вологість: {str(data_weather['humidity'])}")
+    wind_kph = QLabel(f"Вітер км/г: {str(data_weather['wind_kph'])}")
+    cloud = QLabel(f"Хмарність: {str(data_weather['cloud'])}")
+    pressure_mb = QLabel(f"Тиск: {str(data_weather['pressure_mb'])}")
     update_text = QLabel(str(data_weather['last_updated']))
 
     # -----------------------------Add elements-------------------------------------------------------------------------------
@@ -111,7 +122,7 @@ def weather_app(local):
     weatherV_line.addWidget(humidity, alignment=Qt.AlignHCenter)
     weatherV_line.addWidget(wind_kph, alignment=Qt.AlignHCenter)
     weatherV_line.addWidget(cloud, alignment=Qt.AlignHCenter)
-
+    weatherV_line.addWidget(pressure_mb,alignment= Qt.AlignHCenter)
     mainV_line.addLayout(mainH_line)
     mainV_line.addWidget(update_text, alignment= Qt.AlignHCenter | Qt.AlignBottom)
 

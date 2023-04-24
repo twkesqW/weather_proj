@@ -26,22 +26,24 @@ login_app.setStyleSheet('''
         QLineEdit{
             background:white;
             font-size:14px;
-            color:grey;
-            border-radius:10px;
+            color:black;
+            font-family:sans-serif;
+            border-radius:2px;
             padding:3px 8px;
             font-size:11px;
         }
         
         QPushButton{
             background:white;
-            padding:3px 5px;
-            border-radius:3px;
+            padding:5px 7px;
+            border-radius:2px;
             margin:5px;
             color:grey;
         }
         
         QLabel{
             color:white;
+           
         }
         
 

@@ -2,5 +2,9 @@
     "test": {
         "password": "1",
         "town": "Lviv"
+    },
+    "test2": {
+        "password": "2",
+        "town": "Kiev"
     }
 }
