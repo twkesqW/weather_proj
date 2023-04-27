@@ -1,19 +1,16 @@
-from PyQt5 import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
-from PyQt5.QtGui import QIcon,QPixmap
+from PyQt5.QtGui import QIcon, QPixmap
 import requests
 import urllib.request
 # ------------------------------------------------------------------------------------------------------------------------
 
 def weather_app(local):
-
     location = local
     api_key = "8fd6f775df7f422781d164050232303"
     url = f"http://api.weatherapi.com/v1/current.json?key={api_key}&q={location}&aqi=no"
     request = requests.get(url)
     data = request.json()
-    datalocal = data['location']
     data_weather = data['current']
 
     # -----------------------------------------------------------------------------------------------------------------------
@@ -26,7 +23,7 @@ def weather_app(local):
     main_win.setWindowIcon(QIcon("weather.png"))
     main_win.setStyleSheet('''
             QWidget{
-                background-color: #333333;
+                background-color:#333333;
             }
              QLabel#welcome{
                 color:white;
@@ -45,7 +42,7 @@ def weather_app(local):
              }
 
             QLabel{
-                font-size:15px;
+                font-size:14px;
                 font-weight:bold;
                 color:white;
                 margin-bottom:10px;
@@ -57,12 +54,21 @@ def weather_app(local):
             }
 
             QPushButton#search_btn{
-                background-color:white;
-                padding:5px 10px;
-                margin-top:20px;
-                border-radius:10px;
+                border:1px solid white;
+                padding:7px 12px;
+                margin-top:10px;
+                border-radius: 5px;
                 font-weight:bold;
+                color:white;  
+                   
             }
+        
+            QPushButton#search_btn:hover{
+                background-color:white;
+                color:#333333;
+            }
+            
+           
 
         ''')
 
@@ -88,19 +94,18 @@ def weather_app(local):
 
 
 
-    try:
-        print(f"https://{str(data_weather['condition']['icon'])}")
 
-        urlIm = f"https:{str(data_weather['condition']['icon'])}"
-        dataIm = urllib.request.urlopen(urlIm).read()
 
-        imagel = QLabel()
-        image = QPixmap()
-        image.loadFromData(dataIm)
-        image = image.scaled(100, 100)
-        imagel.setPixmap(image)
-    except Exception as e:
-        print(e)
+
+    urlIm = f"https:{str(data_weather['condition']['icon'])}"
+    dataIm = urllib.request.urlopen(urlIm).read()
+
+    imagel = QLabel()
+    image = QPixmap()
+    image.loadFromData(dataIm)
+    image = image.scaled(100, 100)
+    imagel.setPixmap(image)
+
 
     town = QLabel(location)
     town.setObjectName("town")
@@ -122,9 +127,9 @@ def weather_app(local):
     weatherV_line.addWidget(humidity, alignment=Qt.AlignHCenter)
     weatherV_line.addWidget(wind_kph, alignment=Qt.AlignHCenter)
     weatherV_line.addWidget(cloud, alignment=Qt.AlignHCenter)
-    weatherV_line.addWidget(pressure_mb,alignment= Qt.AlignHCenter)
+    weatherV_line.addWidget(pressure_mb, alignment=Qt.AlignHCenter)
     mainV_line.addLayout(mainH_line)
-    mainV_line.addWidget(update_text, alignment= Qt.AlignHCenter | Qt.AlignBottom)
+    mainV_line.addWidget(update_text, alignment=Qt.AlignHCenter | Qt.AlignBottom)
 
     mainH_line.addLayout(searchV_line)
     mainH_line.addLayout(weatherV_line)
@@ -133,20 +138,19 @@ def weather_app(local):
 
     def changeTown():
         try:
-            location = search_line.text()
-            api_key = "8fd6f775df7f422781d164050232303"
-            url = f"http://api.weatherapi.com/v1/current.json?key={api_key}&q={location}&aqi=no"
-            request = requests.get(url)
-            data = request.json()
-            datalocal = data['location']
-            data_weather = data['current']
+            location_ = search_line.text()
+            api_key_ = "8fd6f775df7f422781d164050232303"
+            url_ = f"http://api.weatherapi.com/v1/current.json?key={api_key_}&q={location_}&aqi=no"
+            request_ = requests.get(url_)
+            data_ = request_.json()
+            data_weather_ = data_['current']
 
-            town.setText(location)
-            temperature.setText(f"Temperature: {str(data_weather['temp_c'])}")
-            humidity.setText(f"Humidity: {str(data_weather['humidity'])}")
-            wind_kph.setText(f"Wind kph: {str(data_weather['wind_kph'])}")
-            cloud.setText(f"Cloud: {str(data_weather['cloud'])}")
-            welcome_text.setText('Welcome!')
+            town.setText(location_)
+            temperature.setText(f"Температура: {str(data_weather_['temp_c'])}")
+            humidity.setText(f"Вологість: {str(data_weather_['humidity'])}")
+            wind_kph.setText(f"Вітер км/г: {str(data_weather_['wind_kph'])}")
+            cloud.setText(f"Хмарність: {str(data_weather_['cloud'])}")
+            pressure_mb.setText(f"Тиск: {str(data_weather_['pressure_mb'])}")
             search_line.setText("")
 
         except:
@@ -161,6 +165,8 @@ def weather_app(local):
         cloud.setText(f"")
         welcome_text.setText('')
         search_line.setText("")
+        pressure_mb.setText("")
+
 
     search_btn.clicked.connect(changeTown)
     # ------------------------------------------------------------------------------------------------------------------------

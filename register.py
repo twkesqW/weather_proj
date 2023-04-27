@@ -1,3 +1,4 @@
+from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import *
 import json
 
@@ -9,6 +10,7 @@ def RegisterWindow():
     dialog = QDialog()
     mainLine = QVBoxLayout()
     btnLineW = QHBoxLayout()
+    dialog.setWindowIcon(QIcon("signup_icon.png"))
 
     loginTextW = QLabel("New username:")
     passwordTextW = QLabel("Password:")

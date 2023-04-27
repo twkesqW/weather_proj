@@ -1,4 +1,7 @@
 import sys
+
+from PyQt5.QtCore import *
+from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import *
 import json
 import register
@@ -10,6 +13,7 @@ login_app = QApplication([])
 login_win = QWidget()
 login_win.setObjectName("login_win")
 login_app.setApplicationName("Login")
+login_app.setWindowIcon(QIcon("login_icon.png"))
 login_app.setStyleSheet('''
 
 
@@ -19,27 +23,36 @@ login_app.setStyleSheet('''
             font-weight:bold;
         }
         
-        QWidget#login_win{
-            padding:5px 10px;
-        }
+    
+        
         
         QLineEdit{
-            background:white;
+            background:#333333;
             font-size:14px;
-            color:black;
+            color:white;
             font-family:sans-serif;
             border-radius:2px;
             padding:3px 8px;
             font-size:11px;
+            border:1px solid white;
+            
         }
         
         QPushButton{
-            background:white;
+            background:#333333;
             padding:5px 7px;
             border-radius:2px;
             margin:5px;
-            color:grey;
+            color:white;
+            border:1px solid white;
+    
         }
+        
+        QPushButton:hover{
+                background-color:white;
+                color:#333333;
+                
+            }
         
         QLabel{
             color:white;
@@ -62,14 +75,15 @@ loginEdit = QLineEdit()
 passwordEdit = QLineEdit()
 loginBtn = QPushButton("Login")
 signBtn = QPushButton("Sign Up")
-cancelBtn = QPushButton("Cancel")
-
+cancelBtn = QPushButton(" Exit ")
+text_err = QLabel("")
 #-----------------------------------------------------------------------------------------------------------------------
 
 main_Vline.addWidget(loginText)
 main_Vline.addWidget(loginEdit)
 main_Vline.addWidget(passwordText)
 main_Vline.addWidget(passwordEdit)
+main_Vline.addWidget(text_err, alignment=Qt.AlignVCenter | Qt.AlignHCenter)
 btn_line.addWidget(loginBtn)
 btn_line.addWidget(signBtn)
 btn_line.addWidget(cancelBtn)
@@ -94,8 +108,7 @@ def loginGame():
             main.weather_app(jsonD[login]['town'])
 
     else:
-        print("No")
-        sys.exit()
+        text_err.setText("Помилка! Неправильний логін чи пароль")
 
 #-----------------------------------------------------------------------------------------------------------------------
 
